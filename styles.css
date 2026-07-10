@@ -110,9 +110,9 @@ select {
   position: sticky;
   top: 16px;
   z-index: 50;
-  width: min(var(--max), calc(100% - 32px));
-  margin: 16px auto 0;
-  padding: 0;
+  width: min(950px, calc(100% - 28px));
+  margin: 16px 0 0 auto;
+  padding-right: 16px;
 }
 
 .nav {
@@ -123,8 +123,8 @@ select {
   gap: 22px;
   padding: 10px 18px 10px 24px;
   border: 1px solid rgba(255, 255, 255, 0.9);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
+  border-radius: 999px 0 0 999px;
+  background: rgba(255, 255, 255, 0.78);
   box-shadow: var(--shadow);
   backdrop-filter: blur(24px);
 }
@@ -478,21 +478,54 @@ p {
 .stats {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  border-top: 1px solid var(--line);
+  gap: 16px;
 }
 
 .stat {
-  border-top: 1px solid var(--line);
-  padding-top: 26px;
+  position: relative;
+  min-height: 158px;
+  overflow: hidden;
+  padding: 24px;
+  border: 1px solid rgba(223, 230, 236, 0.92);
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: 0 16px 42px rgba(17, 19, 21, 0.05);
+  transition: transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease;
+}
+
+.stat::after {
+  content: "";
+  position: absolute;
+  right: -46px;
+  bottom: -56px;
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 75, 47, 0.14), transparent 68%);
+}
+
+.stat:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 75, 47, 0.32);
+  box-shadow: 0 24px 58px rgba(17, 19, 21, 0.09);
 }
 
 .stat strong {
-  display: block;
-  margin-bottom: 8px;
-  font-size: clamp(42px, 4vw, 62px);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 3px;
+  margin-bottom: 18px;
+  font-size: clamp(38px, 3.6vw, 58px);
   line-height: 1;
   letter-spacing: 0;
+}
+
+.stat strong small {
+  color: var(--coral);
+  font-size: 0.45em;
+  font-weight: 900;
 }
 
 .stat span,
@@ -504,8 +537,16 @@ p {
   color: #6c6965;
   font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.32em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+}
+
+.stat > span {
+  position: relative;
+  z-index: 1;
+  display: block;
+  max-width: 210px;
+  line-height: 1.45;
 }
 
 .split {
@@ -572,28 +613,53 @@ p {
 
 .booking-card {
   position: absolute;
-  left: -40px;
-  bottom: -1px;
-  width: min(330px, 80%);
-  padding: 28px;
-  border: 1px solid var(--line);
-  border-radius: 8px 8px 0 0;
-  background: rgba(245, 247, 249, 0.88);
-  backdrop-filter: blur(20px);
+  right: 24px;
+  bottom: 24px;
+  width: min(420px, calc(100% - 48px));
+  padding: 26px;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  border-radius: 8px;
+  background: rgba(17, 19, 21, 0.82);
+  color: white;
+  box-shadow: 0 24px 70px rgba(17, 19, 21, 0.22);
+  backdrop-filter: blur(22px);
 }
 
 .booking-card span {
   display: block;
   margin-bottom: 10px;
-  color: #6c6965;
+  color: rgba(255, 255, 255, 0.62);
   font-size: 13px;
   font-weight: 800;
-  letter-spacing: 0.28em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
 .booking-card strong {
-  font-size: 24px;
+  display: block;
+  font-size: clamp(25px, 2.4vw, 34px);
+  line-height: 1.08;
+}
+
+.booking-card p {
+  margin: 14px 0 0;
+  color: rgba(255, 255, 255, 0.68);
+  font-size: 16px;
+}
+
+.booking-card a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  color: white;
+  font-weight: 800;
+}
+
+.booking-card a svg {
+  width: 18px;
+  height: 18px;
+  color: var(--coral);
 }
 
 .section-top {
@@ -1541,8 +1607,19 @@ p {
   }
 
   .booking-card {
-    left: 14px;
+    right: 14px;
+    bottom: 14px;
+    left: auto;
     width: calc(100% - 28px);
+    padding: 20px;
+  }
+
+  .booking-card strong {
+    font-size: 24px;
+  }
+
+  .booking-card p {
+    font-size: 15px;
   }
 
   .section-top,
