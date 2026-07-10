@@ -138,22 +138,11 @@ select {
   white-space: nowrap;
 }
 
-.brand-dot {
-  display: grid;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: #070706;
-}
-
-.brand-dot::after {
-  content: "";
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--coral);
-  box-shadow: 0 0 0 7px rgba(255, 75, 47, 0.08);
+.brand-logo {
+  display: block;
+  width: 58px;
+  height: auto;
+  flex: 0 0 auto;
 }
 
 .nav-links {
@@ -1482,9 +1471,8 @@ p {
     font-size: 19px;
   }
 
-  .brand-dot {
-    width: 34px;
-    height: 34px;
+  .brand-logo {
+    width: 48px;
   }
 
   .menu-toggle {
