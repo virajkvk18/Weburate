@@ -4,6 +4,7 @@ const counters = document.querySelectorAll("[data-counter]");
 const menuToggle = document.querySelector(".menu-toggle");
 const navLinks = document.querySelector(".nav-links");
 const accordionItems = document.querySelectorAll(".accordion-item");
+const pageProgress = document.querySelector(".page-progress");
 
 if (window.lucide) {
   window.lucide.createIcons();
@@ -75,7 +76,36 @@ if (matchMedia("(pointer: fine)").matches) {
       button.style.transform = "";
     });
   });
+
+  document.querySelectorAll(".service-card, .price-card, .work-card, .image-tile").forEach((card) => {
+    card.addEventListener("pointermove", (event) => {
+      const rect = card.getBoundingClientRect();
+      const x = ((event.clientX - rect.left) / rect.width - 0.5) * 2;
+      const y = ((event.clientY - rect.top) / rect.height - 0.5) * 2;
+      card.style.setProperty("--tilt-x", `${y * -3}deg`);
+      card.style.setProperty("--tilt-y", `${x * 3}deg`);
+      card.style.setProperty("--glow-x", `${event.clientX - rect.left}px`);
+      card.style.setProperty("--glow-y", `${event.clientY - rect.top}px`);
+    });
+
+    card.addEventListener("pointerleave", () => {
+      card.style.removeProperty("--tilt-x");
+      card.style.removeProperty("--tilt-y");
+      card.style.removeProperty("--glow-x");
+      card.style.removeProperty("--glow-y");
+    });
+  });
 }
+
+function updatePageProgress() {
+  if (!pageProgress) return;
+  const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+  const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+  pageProgress.style.transform = `scaleX(${Math.min(Math.max(progress, 0), 1)})`;
+}
+
+updatePageProgress();
+window.addEventListener("scroll", updatePageProgress, { passive: true });
 
 function setMenuIcon(isOpen) {
   const icon = menuToggle.querySelector("[data-lucide]");
@@ -160,7 +190,7 @@ if (leadForm) {
       details || "(not provided)",
     ].filter((line) => line !== null);
 
-    const mailto = `mailto:virajvishwakarma672@gmail.com?subject=${encodeURIComponent(
+    const mailto = `mailto:weburateinfotech@gmail.com?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
 
