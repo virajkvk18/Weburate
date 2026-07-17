@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://weburate.online/sitemap.xml

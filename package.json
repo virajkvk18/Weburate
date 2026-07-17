@@ -1,0 +1,9 @@
+{
+  "name": "weburate-static-site",
+  "private": true,
+  "scripts": {
+    "test": "node tests/site-audit.mjs && node tests/contact-api.test.cjs",
+    "check:js": "node --check assets/js/site.20260717.js && node --check api/contact.js",
+    "preview": "npx serve . -l 4173"
+  }
+}
