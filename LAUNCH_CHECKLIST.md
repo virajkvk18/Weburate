@@ -1,49 +1,53 @@
 # Weburate launch checklist
 
-## Required owner and Vercel actions
+## Must complete before deployment
 
-- [ ] Confirm `https://weburate.online/` is the final primary production domain.
-- [ ] Add both apex and `www` domains in Vercel; choose one primary and redirect the alternative to it without a loop.
-- [ ] Confirm the Vercel preview domain is never used as a canonical URL.
-- [ ] Confirm HTTPS, HSTS and every production redirect.
-- [ ] Set `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` in Vercel; redeploy and test delivery.
-- [ ] Set up and verify a domain email before publishing it anywhere.
-- [ ] Verify the property in Google Search Console.
-- [ ] Submit `https://weburate.online/sitemap.xml`.
-- [ ] Inspect and request indexing for the homepage, core service pages and industry pages.
-- [ ] Configure GA4 only after confirming the measurement and consent plan.
-- [ ] Configure Microsoft Clarity only after confirming the measurement and consent plan.
-- [ ] Create or update a Google Business Profile only when the real business is eligible.
-- [ ] Create consistent real LinkedIn, Instagram and other profiles; do not create fake profiles.
-- [ ] Replace concept work with genuine projects only after evidence and display permission are available.
-- [ ] Request genuine client reviews without incentives or scripted outcomes.
-- [ ] Build links through real work, partnerships, directories and useful content—not purchased or fabricated links.
-- [ ] Monitor Search Console coverage, security issues and Core Web Vitals after launch.
+- [ ] Confirm `https://weburate.online/` is the final primary domain.
+- [ ] Confirm the public phone number: `+91 62644 49774`.
+- [ ] Confirm the public email: `weburateinfotech@gmail.com`.
+- [ ] Confirm the Instagram URL: `https://www.instagram.com/weburateinfotech/`.
+- [ ] Confirm the four indicative package prices, inclusions, revisions and delivery estimates.
+- [ ] Confirm that concept projects remain clearly labelled until genuine portfolio permission and evidence are supplied.
+- [ ] Confirm the contact-form recipient and verified sender.
+- [ ] Add `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` to Vercel.
+- [ ] Keep `CONTACT_DEV_MODE` unset or `false` in Production.
+- [ ] Configure a Vercel Firewall rate-limit rule for `/api/contact`, or document the durable external limiter selected.
+- [ ] Test contact validation, delivery, reply-to behaviour and failure fallback.
+- [ ] Test the mobile site at 320, 360, 375, 390, 430, 768, 1024, 1280 and 1440 CSS pixels.
+- [ ] Validate every JSON-LD page listed in `STRUCTURED_DATA_TESTING.md`.
+- [ ] Validate `sitemap.xml` and confirm every listed URL returns 200 without redirecting.
+- [ ] Validate `robots.txt` and its sitemap declaration.
+- [ ] Run Lighthouse for Performance, Accessibility, Best Practices and SEO.
+- [ ] Complete keyboard-only and screen-reader spot checks.
+- [ ] Check every internal, WhatsApp, phone, email and Instagram link.
+- [ ] Have the owner or a qualified adviser review the Privacy Policy and Terms.
 
-## Content and legal
+## Complete after deployment
+
+- [ ] Verify HTTPS on the primary domain.
+- [ ] Confirm the apex and `www` domains redirect to one primary URL without a loop.
+- [ ] Inspect canonical tags in the deployed source; confirm extensionless production URLs.
+- [ ] Open `https://weburate.online/sitemap.xml` and verify all responses.
+- [ ] Open `https://weburate.online/robots.txt`.
+- [ ] Verify the domain property in Google Search Console.
+- [ ] Submit the sitemap in Google Search Console.
+- [ ] Inspect and request indexing for the homepage, service pages and industry pages.
+- [ ] Configure GA4 only after the measurement and consent decision is approved.
+- [ ] Configure Microsoft Clarity only after the measurement and consent decision is approved.
+- [ ] Test every analytics event without sending form values or other personal data.
+- [ ] Test the contact form on production.
+- [ ] Review serverless delivery logs without logging or exposing personal information.
+- [ ] Run PageSpeed Insights on the homepage and a representative service page.
+- [ ] Monitor Search Console coverage and enhancement reports.
+- [ ] Monitor real-user Core Web Vitals.
+- [ ] Create consistent real business profiles where appropriate.
+- [ ] Ask genuine clients for honest reviews without scripts or incentives.
+- [ ] Publish useful content regularly only after owner review.
+
+## Owner content still required
 
 - [ ] Complete `CONTENT_TODO.md`.
-- [ ] Owner or qualified adviser reviews the Privacy Policy and Terms for the actual business and applicable law.
-- [ ] Review pricing and scope; confirm that all public claims remain accurate.
-- [ ] Review editorial drafts, verify any time-sensitive facts or prices, then remove `noindex` and add approved articles to the sitemap.
-
-## Browser and accessibility release pass
-
-- [ ] Test at 320, 375, 390, 768, 1024 and 1440 CSS pixels.
-- [ ] Confirm no horizontal scroll, overlap, clipped focus or unreadable headings.
-- [ ] Test menu open/close, link selection, outside click, Escape and returned focus.
-- [ ] Navigate every page using keyboard only; verify visible focus and logical order.
-- [ ] Test FAQ details using Enter and Space.
-- [ ] Test form validation, error focus, loading, success, duplicate-submit prevention and provider failure.
-- [ ] Test WhatsApp, phone, email and all internal links on production.
-- [ ] Check the browser console for errors and unhandled rejections.
-- [ ] Run Lighthouse on representative mobile and desktop pages; review field data after enough real traffic exists.
-- [ ] Validate structured data using Google’s Rich Results Test or Schema.org validator.
-- [ ] Confirm sitemap URLs return 200, an unknown URL returns 404, and no mixed content exists.
-
-## Analytics verification, if enabled
-
-- [ ] Confirm empty IDs load no analytics requests.
-- [ ] Verify configured IDs in GA4 DebugView and Clarity.
-- [ ] Confirm conversion events fire once and contain no form values.
-- [ ] Update the Privacy Policy if actual collection or providers change.
+- [ ] Supply verified client work and display permission before publishing case studies.
+- [ ] Confirm founder or team details and the real service area before adding them.
+- [ ] Confirm a domain email before replacing the current Gmail address.
+- [ ] Review the noindex insight drafts before deciding whether to publish them.

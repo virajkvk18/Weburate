@@ -137,9 +137,9 @@ if (form) {
       const result = await response.json().catch(() => ({}));
       if (!response.ok) throw new Error(result.message || "Your message could not be sent.");
       form.reset();
-      setStatus("Thanks — your project brief was sent. Weburate will reply using the contact details you provided.");
+      setStatus(result.development ? "Development test passed. No email was sent." : "Thanks — your project brief was sent. Weburate will reply using the contact details you provided.");
       track("contact_form_success");
-      submit.textContent = "Sent";
+      submit.textContent = result.development ? "Test passed" : "Sent";
     } catch (error) {
       setStatus(`${error.message} You can also email weburateinfotech@gmail.com or use WhatsApp.`, true);
       track("contact_form_error");

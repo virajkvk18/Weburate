@@ -4,7 +4,7 @@ Production-oriented static HTML, CSS and vanilla JavaScript for `https://weburat
 
 ## Local preview
 
-Use `npm run preview`, then open `http://localhost:4173`. A basic static preview cannot execute the Vercel API function; use `npx vercel dev` when testing email delivery locally.
+Use `npm run preview`, then open `http://localhost:4173`. The preview server supports the extensionless URLs used in production. A basic static preview cannot execute the Vercel API function; use `npx vercel dev` when testing the full contact workflow.
 
 ## Deploy to Vercel
 
@@ -22,11 +22,30 @@ Import the repository as a Vercel project. The repository has no framework build
 
 Until those variables are configured, the form returns a safe setup error and offers the existing Gmail and WhatsApp contact methods.
 
+For safe local testing, copy `.env.example` to `.env.local`, set `CONTACT_DEV_MODE=true`, leave the Resend values empty and run `npx vercel dev`. Development mode validates the request and returns success without sending email. It is ignored when `VERCEL_ENV=production`.
+
+The endpoint uses origin checks, strict field validation, a timing check and a honeypot. Reliable request throttling cannot use an in-memory counter because Vercel functions run across separate instances. Configure a Vercel Firewall rate-limit rule for `/api/contact`, or use a durable external rate-limit store, before high-volume promotion.
+
 ## Optional analytics
 
 Edit `assets/js/analytics-config.js` and set a public GA4 measurement ID (`G-...`) and/or a Microsoft Clarity project ID. An empty value loads nothing. The loader records only named conversion events; it never sends form-field values. Before enabling a provider, confirm applicable consent requirements and ensure the Privacy Policy matches the actual configuration.
 
-Tracked events: `whatsapp_header`, `whatsapp_hero`, `whatsapp_floating`, `phone_click`, `email_click`, `pricing_cta`, `portfolio_click`, `contact_form_start`, `contact_form_success`, and `contact_form_error`. Add `data-event="portfolio_click"` to verified portfolio links when genuine case studies are published.
+### Analytics event table
+
+| Event | Trigger | Parameters | Privacy note |
+| --- | --- | --- | --- |
+| `whatsapp_header` | Header WhatsApp link | None | No form values |
+| `whatsapp_hero` | Hero WhatsApp link | None | No form values |
+| `whatsapp_floating` | Floating WhatsApp link | None | No form values |
+| `phone_click` | Phone link | None | Phone number is not sent as a parameter |
+| `email_click` | Email link | None | Email address is not sent as a parameter |
+| `pricing_cta` | Any package enquiry link | None | Package text is not sent |
+| `portfolio_click` | Concepts navigation or future verified portfolio link | None | No client data |
+| `contact_form_start` | First form input | None | Field values are never collected |
+| `contact_form_success` | API confirms delivery or safe development-mode validation | None | Field values are never collected |
+| `contact_form_error` | API or network failure | None | Error text and field values are not sent |
+
+Each event is emitted once per user action. Add `data-event="portfolio_click"` to verified case-study links when genuine portfolio content is published.
 
 ## Portfolio and case studies
 
@@ -34,12 +53,16 @@ The current homepage shows demonstration concepts because the repository contain
 
 ## Sitemap and structured data
 
-Use absolute `https://weburate.online/` URLs. Add only canonical, indexable, production pages to `sitemap.xml`; exclude 404s, editorial drafts, templates and thank-you pages. Keep homepage Organization data and each Service/Breadcrumb graph consistent with visible page content.
+Use absolute extensionless `https://weburate.online/` URLs. Vercel redirects `.html` requests because `cleanUrls` is enabled, so `.html` URLs must not appear in canonicals or the sitemap. Add only canonical, indexable production pages; exclude 404s, editorial drafts, templates and thank-you pages. Keep homepage Organization data and each Service/Breadcrumb graph consistent with visible page content.
 
 ## Versioned assets
 
-Production pages load dated CSS and JavaScript files. When either changes, create a new dated filename, update page references and Vercel cache paths if needed. Do not replace a long-cached asset in place.
+Production pages load dated CSS and JavaScript files. When either changes, create a new versioned filename and update page references. Do not replace a long-cached asset in place. `assets/weburate-logo-transparent.png` is the preserved original logo source; production pages use the smaller WebP display asset.
+
+## Content Security Policy
+
+All visual assets, CSS and primary JavaScript are local. The CSP permits `www.googletagmanager.com` only for optional GA4 loading, `www.clarity.ms` only for optional Clarity loading, and the documented Google Analytics and Clarity collection endpoints in `connect-src`. Empty analytics IDs mean no third-party scripts or connections are created.
 
 ## Tests
 
-Run `npm test` for repository-wide links, metadata, H1, duplicate ID, sitemap and secret-pattern checks. Run `npm run check:js` for JavaScript syntax. Complete the browser, keyboard, contact delivery, analytics and deployment checks in `LAUNCH_CHECKLIST.md` before release.
+Run `npm run audit` for the dependency-free production audit. Run `npm test` for the audit plus contact API tests, and `npm run check:js` for JavaScript syntax. Complete the browser, keyboard, contact delivery, analytics and deployment checks in `LAUNCH_CHECKLIST.md` before release.

@@ -11,7 +11,7 @@ The original homepage also presented unsupported claims: 40+ sites, a 4.9/5 rati
 - Canonical production domain is `https://weburate.online/` throughout metadata, JSON-LD, robots and sitemap.
 - Homepage is the central brand and conversion page.
 - Five distinct service pages and three distinct industry pages use unique metadata, H1s, useful content, internal links, breadcrumbs and structured data.
-- Insights index is indexable. Three useful editorial drafts have Article data but remain `noindex,follow` pending owner review and are excluded from the sitemap.
+- The insights index and three useful editorial drafts remain `noindex,follow` pending owner review and are excluded from the sitemap. Draft articles retain Article data for testing before publication.
 - Privacy and Terms are readable, canonical and linked site-wide.
 - Concept cards replace unsupported portfolio claims. The case-study template is `noindex,nofollow` and excluded from the sitemap.
 
@@ -28,3 +28,11 @@ The original homepage also presented unsupported claims: 40+ sites, a 4.9/5 rati
 ## Content rules for future changes
 
 Use one canonical URL and one H1 per page. Write a unique title and description. Keep claims visible and supportable. Add a URL to the sitemap only after it is complete, indexable and canonical. Update JSON-LD whenever visible business facts change. Never publish a city page, client result, review, address, credential or ranking promise without verified owner input.
+
+## Post-implementation audit
+
+- Canonicals, internal links, JSON-LD URLs and the sitemap use Vercel's extensionless clean URLs, avoiding redirecting `.html` URLs in search signals.
+- The original service charges are retained: Custom Basic INR 6,000, Starter INR 6,999, Growth INR 15,000 and Premium INR 25,000+.
+- Pricing now states scope, timelines, revision limits, support boundaries, exclusions and client responsibilities without ranking guarantees.
+- The contact endpoint rejects untrusted production origins, strips line breaks from email header inputs, escapes HTML, enforces an input allowlist and keeps recipients server-controlled.
+- The automated audit checks sitemap membership, metadata uniqueness, canonical alignment, JSON-LD parsing, internal files and anchors, analytics placeholders and common mojibake patterns.
