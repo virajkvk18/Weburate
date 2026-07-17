@@ -87,6 +87,10 @@ document.addEventListener("click", (event) => {
   if (link) track(link.dataset.event);
 });
 
+document.querySelectorAll("[data-current-year]").forEach((element) => {
+  element.textContent = String(new Date().getFullYear());
+});
+
 const form = document.querySelector("#contact-form");
 if (form) {
   const status = document.querySelector("#form-status");
@@ -139,14 +143,14 @@ if (form) {
       form.reset();
       setStatus(result.development ? "Development test passed. No email was sent." : "Thanks — your project brief was sent. Weburate will reply using the contact details you provided.");
       track("contact_form_success");
-      submit.textContent = result.development ? "Test passed" : "Sent";
+      submit.textContent = result.development ? "Test passed" : "Request received";
     } catch (error) {
       setStatus(`${error.message} You can also email weburateinfotech@gmail.com or use WhatsApp.`, true);
       track("contact_form_error");
       sending = false;
       submit.disabled = false;
       submit.removeAttribute("aria-busy");
-      submit.textContent = "Send project brief";
+      submit.textContent = "Request a Free Consultation";
     }
   });
 }

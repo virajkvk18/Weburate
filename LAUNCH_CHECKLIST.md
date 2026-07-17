@@ -7,12 +7,15 @@
 - [ ] Confirm the public email: `weburateinfotech@gmail.com`.
 - [ ] Confirm the Instagram URL: `https://www.instagram.com/weburateinfotech/`.
 - [ ] Confirm the four indicative package prices, inclusions, revisions and delivery estimates.
+- [ ] Confirm the published deposit and milestone wording matches the quotation process.
+- [ ] Confirm the maintenance and post-launch support boundaries.
 - [ ] Confirm that concept projects remain clearly labelled until genuine portfolio permission and evidence are supplied.
 - [ ] Confirm the contact-form recipient and verified sender.
 - [ ] Add `RESEND_API_KEY`, `CONTACT_TO_EMAIL` and `CONTACT_FROM_EMAIL` to Vercel.
 - [ ] Keep `CONTACT_DEV_MODE` unset or `false` in Production.
 - [ ] Configure a Vercel Firewall rate-limit rule for `/api/contact`, or document the durable external limiter selected.
 - [ ] Test contact validation, delivery, reply-to behaviour and failure fallback.
+- [ ] Confirm the optional budget ranges are suitable for incoming enquiries.
 - [ ] Test the mobile site at 320, 360, 375, 390, 430, 768, 1024, 1280 and 1440 CSS pixels.
 - [ ] Validate every JSON-LD page listed in `STRUCTURED_DATA_TESTING.md`.
 - [ ] Validate `sitemap.xml` and confirm every listed URL returns 200 without redirecting.
@@ -51,3 +54,4 @@
 - [ ] Confirm founder or team details and the real service area before adding them.
 - [ ] Confirm a domain email before replacing the current Gmail address.
 - [ ] Review the noindex insight drafts before deciding whether to publish them.
+- [ ] Replace concept projects only with permission-backed portfolio material using `portfolio/case-study-template.html`.

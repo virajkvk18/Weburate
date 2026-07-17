@@ -36,3 +36,13 @@ Use one canonical URL and one H1 per page. Write a unique title and description.
 - Pricing now states scope, timelines, revision limits, support boundaries, exclusions and client responsibilities without ranking guarantees.
 - The contact endpoint rejects untrusted production origins, strips line breaks from email header inputs, escapes HTML, enforces an input allowlist and keeps recipients server-controlled.
 - The automated audit checks sitemap membership, metadata uniqueness, canonical alignment, JSON-LD parsing, internal files and anchors, analytics placeholders and common mojibake patterns.
+
+## Content and conversion phase
+
+- Weburate is positioned as a practical website development service for small businesses, professionals, startups and local service providers.
+- Unsupported numerical social proof remains removed. Trust content describes observable working practices and clearly scoped service qualities.
+- The homepage concept portfolio identifies every item as a demo or concept and avoids client or outcome claims.
+- Service pages separately document intended customers, typical scope, inclusions, exclusions, process, price factors, client inputs and post-launch boundaries.
+- Industry pages contain distinct customer needs, recommended sections, features, calls to action, content responsibilities and realistic example scope.
+- The case-study template moved to `portfolio/case-study-template.html`; it remains `noindex`, unlinked from public navigation and excluded from the sitemap.
+- Insight drafts were expanded for practical owner review but remain `noindex,follow` until approved.

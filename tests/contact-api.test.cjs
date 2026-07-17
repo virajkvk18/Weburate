@@ -16,10 +16,11 @@ async function run(req) { const res=response(); await handler({ method:"POST", h
   delete process.env.VERCEL_ENV;
   process.env.RESEND_API_KEY="test-only"; process.env.CONTACT_TO_EMAIL="owner@example.com"; process.env.CONTACT_FROM_EMAIL="forms@example.com";
   let delivery; const originalFetch=global.fetch; global.fetch=async(_url,options)=>{delivery=JSON.parse(options.body);return{ok:true};};
-  res=await run({body:{name:"Test\r\nBcc: victim",email:"sender@example.com",message:"<script>alert(1)</script> valid project details",startedAt:Date.now()-3000}});
+  res=await run({body:{name:"Test\r\nBcc: victim",email:"sender@example.com",business:"Example Business",service:"Business Website",budget:"₹10,001–₹20,000",message:"<script>alert(1)</script> valid project details",startedAt:Date.now()-3000}});
   global.fetch=originalFetch;
   if(res.statusCode!==200||delivery.to[0]!=="owner@example.com"||delivery.from!=="forms@example.com") throw new Error("Server-controlled mail headers failed");
   if(/[\r\n]/.test(delivery.subject)||delivery.html.includes("<script>")) throw new Error("Header or HTML injection was not neutralised");
+  if(!delivery.html.includes("budget")||!delivery.html.includes("₹10,001–₹20,000")) throw new Error("Optional budget field was not delivered");
   delete process.env.RESEND_API_KEY; delete process.env.CONTACT_TO_EMAIL; delete process.env.CONTACT_FROM_EMAIL;
-  console.log("PASS: contact API method, JSON, field, email, honeypot and configuration checks.");
+  console.log("PASS: contact API method, JSON, field, budget, origin, injection, honeypot and configuration checks.");
 })().catch((error)=>{console.error(error);process.exit(1);});

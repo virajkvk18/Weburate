@@ -7,7 +7,7 @@ const errors = [];
 const requiredFiles = [
   "index.html", "privacy.html", "terms.html", "404.html", "robots.txt",
   "sitemap.xml", "site.webmanifest", "vercel.json", "api/contact.js",
-  "assets/css/site.20260717-2.css", "assets/js/site.20260717-2.js",
+  "assets/css/site.20260717-3.css", "assets/js/site.20260717-3.js",
   "assets/js/analytics-config.js", "assets/social/weburate-social-1200x630.png",
 ];
 
@@ -102,7 +102,7 @@ for (const file of htmlFiles) {
   }
 }
 
-const productionTextFiles = ["index.html", "privacy.html", "terms.html", "404.html", "robots.txt", "sitemap.xml", "vercel.json", "assets/css/site.20260717-2.css", "assets/js/site.20260717-2.js", "assets/js/analytics-config.js"];
+const productionTextFiles = ["index.html", "privacy.html", "terms.html", "404.html", "robots.txt", "sitemap.xml", "vercel.json", "assets/css/site.20260717-3.css", "assets/js/site.20260717-3.js", "assets/js/analytics-config.js"];
 const productionText = productionTextFiles.map(read).join("\n");
 if (/weburate\.com(?![a-z])/i.test(productionText)) fail("Old weburate.com reference remains in production files");
 if (/WebUrate/.test(productionText)) fail("Inconsistent WebUrate spelling remains");

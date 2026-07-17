@@ -4,11 +4,32 @@ Production-oriented static HTML, CSS and vanilla JavaScript for `https://weburat
 
 ## Local preview
 
-Use `npm run preview`, then open `http://localhost:4173`. The preview server supports the extensionless URLs used in production. A basic static preview cannot execute the Vercel API function; use `npx vercel dev` when testing the full contact workflow.
+Node.js is required for the audit and API tests. The repository has no installed runtime or development dependencies, so there is no dependency installation step. The preview command downloads `serve` through `npx` when it is not already cached.
+
+```powershell
+cd F:\Weburate
+npm.cmd run preview
+```
+
+Open `http://localhost:4173`. The preview supports the extensionless URLs used in production. A basic static preview cannot execute the Vercel API function.
+
+For the complete local Vercel function workflow, install the Vercel CLI through `npx` and start its development server:
+
+```powershell
+cd F:\Weburate
+npx.cmd vercel dev
+```
 
 ## Deploy to Vercel
 
 Import the repository as a Vercel project. The repository has no framework build step and uses the project root as its output directory. Set the environment variables below for Production and Preview as appropriate, deploy, then configure the primary domain and redirects described in `LAUNCH_CHECKLIST.md`.
+
+For an already linked Vercel project, deploy the current checked-out commit with:
+
+```powershell
+cd F:\Weburate
+npx.cmd vercel deploy --prod
+```
 
 ## Contact form and Resend
 
@@ -34,8 +55,10 @@ Edit `assets/js/analytics-config.js` and set a public GA4 measurement ID (`G-...
 
 | Event | Trigger | Parameters | Privacy note |
 | --- | --- | --- | --- |
-| `whatsapp_header` | Header WhatsApp link | None | No form values |
+| `consultation_header` | Header consultation link | None | No form values |
 | `whatsapp_hero` | Hero WhatsApp link | None | No form values |
+| `whatsapp_page` | Service or industry WhatsApp link | None | No form values |
+| `whatsapp_contact` | Contact-section WhatsApp link | None | No form values |
 | `whatsapp_floating` | Floating WhatsApp link | None | No form values |
 | `phone_click` | Phone link | None | Phone number is not sent as a parameter |
 | `email_click` | Email link | None | Email address is not sent as a parameter |
@@ -49,7 +72,7 @@ Each event is emitted once per user action. Add `data-event="portfolio_click"` t
 
 ## Portfolio and case studies
 
-The current homepage shows demonstration concepts because the repository contained no verifiable client evidence. Gather the items in `CONTENT_TODO.md`, copy `templates/case-study-template.html`, replace every bracketed field, remove `noindex` only after owner approval, link it from the homepage and add its canonical URL to `sitemap.xml`.
+The current homepage shows demonstration concepts because the repository contained no verifiable client evidence. Gather the items in `CONTENT_TODO.md`, copy `portfolio/case-study-template.html`, replace every bracketed field, remove `noindex` only after owner approval, link it from the homepage and add its canonical URL to `sitemap.xml`.
 
 ## Sitemap and structured data
 
@@ -65,4 +88,21 @@ All visual assets, CSS and primary JavaScript are local. The CSP permits `www.go
 
 ## Tests
 
-Run `npm run audit` for the dependency-free production audit. Run `npm test` for the audit plus contact API tests, and `npm run check:js` for JavaScript syntax. Complete the browser, keyboard, contact delivery, analytics and deployment checks in `LAUNCH_CHECKLIST.md` before release.
+Run the dependency-free repository audit, contact API tests and JavaScript syntax checks with:
+
+```powershell
+cd F:\Weburate
+npm.cmd run audit
+npm.cmd test
+npm.cmd run check:js
+```
+
+Run HTML and CSS validators without adding them to the project:
+
+```powershell
+cd F:\Weburate
+npx.cmd --yes html-validate@10.0.0 "**/*.html"
+npx.cmd --yes csstree-validator@4.0.1 assets/css/site.20260717-3.css
+```
+
+Complete the browser, keyboard, production contact delivery, analytics and deployment checks in `LAUNCH_CHECKLIST.md` before release.

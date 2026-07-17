@@ -4,7 +4,7 @@
   "scripts": {
     "audit": "node scripts/site-audit.js",
     "test": "npm run audit && node tests/contact-api.test.cjs",
-    "check:js": "node --check assets/js/site.20260717-2.js && node --check api/contact.js && node --check scripts/site-audit.js",
+    "check:js": "node --check assets/js/site.20260717-3.js && node --check api/contact.js && node --check scripts/site-audit.js",
     "preview": "npx serve . -l 4173"
   }
 }

@@ -1,4 +1,4 @@
-const allowedKeys = new Set(["name", "email", "phone", "business", "service", "message", "website", "startedAt"]);
+const allowedKeys = new Set(["name", "email", "phone", "business", "service", "budget", "message", "website", "startedAt"]);
 
 function json(res, status, body) {
   res.setHeader("Content-Type", "application/json; charset=utf-8");
@@ -26,7 +26,7 @@ module.exports = async function handler(req, res) {
   if (text(body.website, 200)) return json(res, 200, { ok: true });
   const startedAt = Number(body.startedAt);
   if (!Number.isFinite(startedAt) || Date.now() - startedAt < 2000 || Date.now() - startedAt > 24 * 60 * 60 * 1000) return json(res, 400, { message: "Please refresh the page and try again." });
-  const data = { name: singleLine(body.name, 100), email: singleLine(body.email, 254).toLowerCase(), phone: singleLine(body.phone, 30), business: singleLine(body.business, 120), service: singleLine(body.service, 80), message: text(body.message, 3000) };
+  const data = { name: singleLine(body.name, 100), email: singleLine(body.email, 254).toLowerCase(), phone: singleLine(body.phone, 30), business: singleLine(body.business, 120), service: singleLine(body.service, 80), budget: singleLine(body.budget, 80), message: text(body.message, 3000) };
   if (!data.name || data.name.length < 2) return json(res, 400, { message: "Enter your name." });
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/u.test(data.email)) return json(res, 400, { message: "Enter a valid email address." });
   if (data.message.length < 20) return json(res, 400, { message: "Add at least 20 characters about the project." });

@@ -18,4 +18,4 @@ Test the deployed clean URLs with both Google Rich Results Test and Schema.org V
 | `https://weburate.online/insights/website-vs-instagram-local-business` | `Article`, `BreadcrumbList` — draft and `noindex` |
 | `https://weburate.online/insights/prepare-before-hiring-website-developer` | `Article`, `BreadcrumbList` — draft and `noindex` |
 
-Privacy, Terms, the 404 page and the unpublished case-study template intentionally have no structured data. No Review, AggregateRating, LocalBusiness or address schema is used.
+Privacy, Terms, the 404 page and the unpublished `portfolio/case-study-template` intentionally have no structured data. No Review, AggregateRating, LocalBusiness or address schema is used.

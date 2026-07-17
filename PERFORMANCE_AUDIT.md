@@ -7,7 +7,7 @@ The homepage H1 is the likely LCP element. The adjacent interface artwork is CSS
 ## Main risks reviewed
 
 - A large desktop heading could push actions below the fold; the responsive type scale was reduced and checked at required widths.
-- Long-lived immutable caching requires versioned filenames; production CSS now uses `site.20260717-2.css`.
+- Long-lived immutable caching requires versioned filenames; production CSS now uses `site.20260717-3.css`.
 - A floating WhatsApp control can cover content on small screens; it now returns to normal document flow below 980 px.
 - Optional analytics creates third-party work only when a valid ID is configured.
 - The social image and manifest icons are not loaded by the visible homepage layout.
@@ -24,7 +24,7 @@ The homepage H1 is the likely LCP element. The adjacent interface artwork is CSS
 
 ## Verification
 
-The final local clean-URL preview was audited with Lighthouse 12.8.2 on 17 July 2026:
+The content and conversion phase was re-audited against the final local clean-URL preview with Lighthouse 12.8.2 on 17 July 2026:
 
 - Performance: 100
 - Accessibility: 100
@@ -34,5 +34,7 @@ The final local clean-URL preview was audited with Lighthouse 12.8.2 on 17 July 
 - Cumulative Layout Shift: 0
 - Total Blocking Time: 0 ms
 - Interaction to Next Paint: not measured by this navigation-only lab run
+
+The expanded homepage was also checked at 320, 360, 375, 390, 430, 768, 1024, 1280 and 1440 CSS pixels. The final layout produced no horizontal overflow, out-of-bounds visible controls or missing images. Process, portfolio and pricing grids collapse at their intended breakpoints.
 
 Run Lighthouse and PageSpeed Insights again after deployment. Field Core Web Vitals remain required because a local lab test cannot measure real-user INP, network conditions or serverless cold starts.
