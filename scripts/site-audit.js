@@ -7,6 +7,8 @@ const errors = [];
 const requiredFiles = [
   "index.html", "privacy.html", "terms.html", "404.html", "robots.txt",
   "sitemap.xml", "site.webmanifest", "vercel.json", "api/contact.js",
+  "favicon.ico", "favicon-48x48.png", "favicon-96x96.png", "apple-touch-icon.png",
+  "web-app-manifest-192x192.png", "web-app-manifest-512x512.png", "weburate-logo-512.png",
   "assets/css/site.20260717-3.css", "assets/js/site.20260717-3.js",
   "assets/js/analytics-config.js", "assets/social/weburate-social-1200x630.png",
 ];
@@ -33,6 +35,25 @@ function walk(directory) {
 }
 
 for (const file of requiredFiles) if (!fs.existsSync(path.join(root, file))) fail(`Missing required file: ${file}`);
+
+try {
+  const manifest = JSON.parse(read("site.webmanifest"));
+  const expectedManifestIcons = [
+    ["/web-app-manifest-192x192.png", "192x192"],
+    ["/web-app-manifest-512x512.png", "512x512"],
+  ];
+  if (manifest.name !== "Weburate" || manifest.short_name !== "Weburate") fail("Manifest brand name is incorrect");
+  if (manifest.start_url !== "/" || manifest.display !== "standalone") fail("Manifest launch configuration is incorrect");
+  if (manifest.background_color !== "#ffffff" || manifest.theme_color !== "#2563ff") fail("Manifest brand colours are incorrect");
+  for (const [src, sizes] of expectedManifestIcons) {
+    if (!manifest.icons?.some((icon) => icon.src === src && icon.sizes === sizes && icon.type === "image/png")) fail(`Manifest is missing ${src}`);
+  }
+} catch { fail("site.webmanifest is not valid JSON"); }
+
+const homepageStructuredData = [...read("index.html").matchAll(/<script type="application\/ld\+json">(.*?)<\/script>/gs)]
+  .flatMap((match) => { try { const data = JSON.parse(match[1]); return data["@graph"] || [data]; } catch { return []; } });
+const homepageOrganization = homepageStructuredData.find((item) => item["@type"] === "Organization");
+if (!homepageOrganization || homepageOrganization.name !== "Weburate" || homepageOrganization.url !== `${productionOrigin}/` || homepageOrganization.logo !== `${productionOrigin}/weburate-logo-512.png`) fail("Homepage Organization logo data is incorrect");
 
 const sitemap = read("sitemap.xml");
 const sitemapUrls = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((match) => match[1]);
@@ -70,6 +91,14 @@ for (const file of htmlFiles) {
   const html = fs.readFileSync(file, "utf8");
   const relative = path.relative(root, file).replaceAll("\\", "/");
   const canonical = attribute(html, /<link rel="canonical" href="([^"]+)"/i) || `${productionOrigin}/`;
+  for (const faviconTag of [
+    '<link rel="icon" href="/favicon.ico" sizes="any">',
+    '<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png">',
+    '<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">',
+    '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">',
+    '<link rel="manifest" href="/site.webmanifest">',
+  ]) if (!html.includes(faviconTag)) fail(`${relative}: missing stable favicon tag ${faviconTag}`);
+  if (/assets\/icons\/(?:favicon|icon-|apple-touch)/i.test(html)) fail(`${relative}: old favicon reference remains`);
   if (/[âÃÂ]|ï¿½|�/.test(html)) fail(`${relative}: possible mojibake remains`);
   try {
     const canonicalUrl = new URL(canonical);
