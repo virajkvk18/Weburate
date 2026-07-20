@@ -1,6 +1,6 @@
 # Weburate static website
 
-Production-oriented static HTML, CSS and vanilla JavaScript for `https://weburate.online/`, deployed on Vercel. The only server-side component is the contact email function in `api/contact.js`.
+Production-oriented static HTML, CSS and vanilla JavaScript for `https://weburate.online/`, deployed on Vercel. The only server-side component is the contact email function in `api/contact.js`. 
 
 ## Local preview
 
