@@ -15,7 +15,9 @@ module.exports = async function handler(req, res) {
   const length = Number(req.headers["content-length"] || 0);
   if (length > 16000) return json(res, 413, { message: "Request is too large." });
   const origin = String(req.headers.origin || "");
-  const allowedOrigins = ["https://weburate.online", "https://www.weburate.online", "http://localhost:4173", "http://127.0.0.1:4173"];
+  const productionOrigins = ["https://weburate.online", "https://www.weburate.online"];
+  const developmentOrigins = ["http://localhost:4173", "http://127.0.0.1:4173"];
+  const allowedOrigins = process.env.VERCEL_ENV === "production" ? productionOrigins : [...productionOrigins, ...developmentOrigins];
   if ((origin && !allowedOrigins.includes(origin)) || (process.env.VERCEL_ENV === "production" && !origin)) return json(res, 403, { message: "Request origin is not allowed." });
   let parsed = req.body;
   if (typeof parsed === "string") { try { parsed = JSON.parse(parsed); } catch { return json(res, 400, { message: "Invalid JSON." }); } }
