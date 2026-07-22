@@ -311,3 +311,61 @@ if (welcomeOffer) {
     if (event.key === "Escape" && !welcomeOffer.hidden) closeWelcomeOffer();
   });
 }
+
+const planner = document.querySelector("#project-planner");
+if (planner) {
+  const packages = {
+    basic: { name: "Custom Basic", price: "₹5,400", fit: "One focused responsive page", service: "Landing Page", budget: "₹6,000–₹10,000", summary: "A focused launch page that gives one service, campaign or offer a clear next step." },
+    starter: { name: "Starter", price: "₹6,299", fit: "Up to 5 responsive pages", service: "Business Website", budget: "₹6,000–₹10,000", summary: "A practical multi-page website for presenting services and converting interest into enquiries." },
+    growth: { name: "Growth", price: "₹13,500", fit: "Up to 10 responsive pages", service: "Business Website", budget: "₹10,001–₹20,000", summary: "A flexible website starting point for a business with broader content, multiple services or one agreed integration." },
+    premium: { name: "Premium", price: "From ₹22,500", fit: "Scope shaped around your requirements", service: "E-commerce Website", budget: "₹20,001–₹40,000", summary: "A custom starting point for commerce, deeper integrations or a more tailored digital product." }
+  };
+  const plannerState = { package: "starter", stage: "starting", goal: "enquiries" };
+  const packageName = planner.querySelector("[data-planner-name]");
+  const packagePrice = planner.querySelector("[data-planner-price]");
+  const packageSummary = planner.querySelector("[data-planner-summary]");
+  const packageFit = planner.querySelector("[data-planner-fit]");
+  const packageButtons = planner.querySelectorAll("[data-planner-package]");
+  const stageButtons = planner.querySelectorAll("[data-planner-stage]");
+  const goalButtons = planner.querySelectorAll("[data-planner-goal]");
+
+  function updatePlanner() {
+    const choice = packages[plannerState.package];
+    const stageCopy = { starting: "Starting from scratch", redesign: "Refreshing an existing site", idea: "Still shaping the idea" }[plannerState.stage];
+    const goalCopy = { enquiries: "with a clear enquiry route", calls: "with a prominent call and WhatsApp route", sales: "with a product-browsing journey" }[plannerState.goal];
+    packageName.textContent = choice.name;
+    packagePrice.firstChild.nodeValue = `${choice.price} `;
+    packageSummary.textContent = `${choice.summary} You’re ${stageCopy.toLowerCase()} ${goalCopy}.`;
+    packageFit.textContent = choice.fit;
+  }
+
+  function bindPlannerButtons(buttons, stateKey, attribute) {
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        plannerState[stateKey] = button.dataset[attribute];
+        buttons.forEach((item) => {
+          const selected = item === button;
+          item.classList.toggle("is-selected", selected);
+          item.setAttribute("aria-pressed", String(selected));
+        });
+        updatePlanner();
+        track(`planner_${stateKey}_${plannerState[stateKey]}`);
+      });
+    });
+  }
+
+  bindPlannerButtons(packageButtons, "package", "plannerPackage");
+  bindPlannerButtons(stageButtons, "stage", "plannerStage");
+  bindPlannerButtons(goalButtons, "goal", "plannerGoal");
+
+  planner.querySelector("[data-planner-claim]")?.addEventListener("click", () => {
+    const choice = packages[plannerState.package];
+    const service = document.querySelector("#service");
+    const budget = document.querySelector("#budget");
+    const message = document.querySelector("#message");
+    if (service) service.value = choice.service;
+    if (budget) budget.value = choice.budget;
+    if (message && !message.value) message.value = `I’m interested in the ${choice.name} starting point with the 10% welcome offer. My priority is ${plannerState.goal}.`;
+  });
+  updatePlanner();
+}
