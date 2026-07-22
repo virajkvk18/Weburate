@@ -275,3 +275,39 @@ direction *= -1;
 },2500);
 
 }
+
+const welcomeOffer = document.querySelector("#welcome-offer");
+if (welcomeOffer) {
+  const welcomeOfferKey = "weburate-welcome-offer-seen";
+  const closeButtons = welcomeOffer.querySelectorAll("[data-offer-close]");
+  const pricingLink = welcomeOffer.querySelector('a[href="#pricing"]');
+  let previousFocus = null;
+  let offerTimer = null;
+
+  function closeWelcomeOffer() {
+    if (offerTimer) window.clearTimeout(offerTimer);
+    welcomeOffer.hidden = true;
+    try { window.localStorage.setItem(welcomeOfferKey, "true"); } catch (_) { /* Storage can be unavailable in private browsing. */ }
+    previousFocus?.focus?.();
+  }
+
+  function openWelcomeOffer() {
+    previousFocus = document.activeElement;
+    welcomeOffer.hidden = false;
+    welcomeOffer.querySelector("[data-offer-close]")?.focus();
+    track("welcome_offer_view");
+  }
+
+  let offerSeen = false;
+  try { offerSeen = window.localStorage.getItem(welcomeOfferKey) === "true"; } catch (_) { /* Show the offer when browser storage is unavailable. */ }
+  if (!offerSeen) offerTimer = window.setTimeout(openWelcomeOffer, 650);
+
+  closeButtons.forEach((button) => button.addEventListener("click", closeWelcomeOffer));
+  pricingLink?.addEventListener("click", closeWelcomeOffer);
+  welcomeOffer.addEventListener("click", (event) => {
+    if (event.target === welcomeOffer) closeWelcomeOffer();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !welcomeOffer.hidden) closeWelcomeOffer();
+  });
+}
