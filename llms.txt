@@ -1,0 +1,31 @@
+# Weburate
+
+> Weburate is a practical web design and website development agency based in India, building fast, mobile-first, conversion-focused websites for small businesses, professionals, startups, and local service providers.
+
+## Key Services
+- **Website Development**: Responsive business websites explaining services and generating customer enquiries (Starter package from ₹6,299).
+- **Landing Page Design**: High-converting, focused single-page landing pages for marketing campaigns and product launches (Custom Basic from ₹5,400).
+- **E-Commerce Development**: Product catalogues, secure cart flows, and payment gateway integration.
+- **Website Redesign**: Speed, mobile UX, and conversion redesigns for existing websites.
+- **Website Maintenance**: Ongoing technical maintenance, security checks, and content updates.
+- **Local SEO & Google Business Profile**: Optimization for Google Search, Google Maps, and local search visibility.
+- **Search & Social Advertising**: Google Ads and Meta Ads (Facebook & Instagram) campaign management.
+
+## Transparent Pricing (India)
+- **Custom Basic**: ₹6,000 (₹5,400 with 10% welcome offer) - 1 responsive page, 3–5 business days.
+- **Starter**: ₹6,999 (₹6,299 with 10% welcome offer) - Up to 5 pages, 7–10 business days.
+- **Growth**: ₹15,000 (₹13,500 with 10% welcome offer) - Up to 10 pages, 2–4 weeks.
+- **Premium**: From ₹25,000 (From ₹22,500 with 10% welcome offer) - Custom scope, commerce, and integrations.
+
+## Core Differentiators & Information Gain
+- **Lean, Handcrafted Code**: Hand-coded semantic HTML, modern CSS, and vanilla JS ensuring 95+ Google PageSpeed scores, zero plugin bloat, and minimal attack surface.
+- **Complete Ownership**: Clients own 100% of their code and content with no recurring vendor lock-in.
+- **Mobile-First & Accessible**: Tested on real mobile devices with WCAG-compliant touch targets and contrast.
+- **Transparent Scope**: No hidden charges; all deliverables, revisions, and timelines are written in advance.
+
+## Contact Information
+- **Website**: https://weburate.online
+- **WhatsApp / Phone**: +91 62644 49774
+- **Email**: weburateinfotech@gmail.com
+- **Instagram**: https://www.instagram.com/weburateinfotech/
+- **Location**: India
