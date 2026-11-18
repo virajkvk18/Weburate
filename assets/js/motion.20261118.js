@@ -172,6 +172,23 @@
     if (pending) show([pending], 0);
   });
 
+  // Solid per-word colours along the brand gradient (cyan → blue → violet) for <em> words
+  // while they animate; see the note in motion.css about background-clip:text.
+  var STOPS = [[0, [24, 200, 244]], [0.52, [37, 99, 235]], [1, [112, 71, 245]]];
+  function gradientAt(t) {
+    for (var i = 1; i < STOPS.length; i++) {
+      if (t <= STOPS[i][0]) {
+        var a = STOPS[i - 1], b = STOPS[i], k = (t - a[0]) / (b[0] - a[0]);
+        return "rgb(" + [0, 1, 2].map(function (c) { return Math.round(a[1][c] + (b[1][c] - a[1][c]) * k); }).join(",") + ")";
+      }
+    }
+    return "rgb(112,71,245)";
+  }
+  function tintEm(split) {
+    var words = split.words.filter(function (w) { return w.closest("em"); });
+    words.forEach(function (w, i) { w.style.color = gradientAt(words.length > 1 ? i / (words.length - 1) : 0); });
+  }
+
   function splitReveal(title, trigger, opts) {
     if (!title || !SplitText) return reveal([title], { y: 30 });
     opts = opts || {};
@@ -179,6 +196,7 @@
     SplitText.create(title, {
       type: "lines,words", mask: "lines", linesClass: "sl", wordsClass: "sw", autoSplit: true,
       onSplit: function (self) {
+        tintEm(self);
         return gsap.from(self.words, {
           yPercent: 115, rotation: 3, duration: 1.15, ease: EASE, stagger: opts.stagger || 0.035,
           scrollTrigger: { trigger: trigger || title, start: opts.start || "top 84%", once: true }
@@ -225,8 +243,10 @@
       if (h1 && SplitText) {
         h1.classList.add("is-splitting");
         split = SplitText.create(h1, { type: "lines,words", mask: "lines", linesClass: "sl", wordsClass: "sw" });
+        tintEm(split);
         tl.from(split.words, { yPercent: 118, rotation: 4, duration: 1.25, stagger: 0.045 }, 0.05);
-        tl.call(function () { split.revert(); h1.classList.remove("is-splitting"); if (em) em.classList.add("is-shimmer"); }, null, ">-0.05");
+        // revert() restores fresh DOM, so look the <em> up again afterwards.
+        tl.call(function () { split.revert(); h1.classList.remove("is-splitting"); var e = $("em", h1); if (e) e.classList.add("is-shimmer"); }, null, ">-0.05");
       } else if (h1) {
         tl.from(h1, { y: 40, opacity: 0, duration: 1.1 }, 0);
       }
@@ -618,8 +638,9 @@
       if (h1 && SplitText) {
         h1.classList.add("is-splitting");
         var s = SplitText.create(h1, { type: "lines,words", mask: "lines", linesClass: "sl", wordsClass: "sw" });
+        tintEm(s);
         tl.from(s.words, { yPercent: 118, rotation: 3, duration: 1.2, stagger: 0.04 }, 0.1)
-          .call(function () { s.revert(); h1.classList.remove("is-splitting"); if (em) em.classList.add("is-shimmer"); }, null, ">-0.05");
+          .call(function () { s.revert(); h1.classList.remove("is-splitting"); var e = $("em", h1); if (e) e.classList.add("is-shimmer"); }, null, ">-0.05");
       }
       tl.from(rest, { y: 26, opacity: 0, duration: 0.9, stagger: 0.08 }, 0);
     } else if (em) {

@@ -106,8 +106,11 @@ html.motion-desktop :is(.button.primary, .nav-cta) { transition: box-shadow .25s
 /* ---------- Shared split-text helpers ---------- */
 /* Each split line already fits on one row; stop text-wrap:balance re-wrapping it. */
 .sl { padding-bottom: .08em; margin-bottom: -.08em; white-space: nowrap; text-wrap: nowrap; }
-em .sw { background-image: var(--brand-gradient); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; }
-html.motion-ok :is(h1, h2, h3).is-splitting em { background: none; }
+/* Gradient text (background-clip: text) on moving elements makes Chrome paint solid gradient
+   boxes, so while a heading is split each <em> word gets a solid colour sampled from the brand
+   gradient (set by motion.js); the real gradient returns once the split is reverted. */
+em .sw { background: none !important; -webkit-text-fill-color: currentColor; }
+html.motion-ok .is-splitting em { background: none !important; animation: none !important; }
 
 /* ---------- Hero ---------- */
 html.motion-ok .hero { isolation: isolate; }
