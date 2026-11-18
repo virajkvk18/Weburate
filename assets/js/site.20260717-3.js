@@ -1,5 +1,7 @@
 "use strict";
 document.documentElement.classList.add("js");
+// motion.js owns reveals, the hero float and the journey bar when html.motion-ok is set.
+const motionOk = document.documentElement.classList.contains("motion-ok");
 
 const menuButton = document.querySelector(".menu-toggle");
 const menu = document.querySelector(".nav-links");
@@ -51,7 +53,7 @@ if (menuButton && menu) {
 }
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-if (!reduceMotion && "IntersectionObserver" in window) {
+if (!reduceMotion && !motionOk && "IntersectionObserver" in window) {
   const items = document.querySelectorAll("main section > *:not(.contact-form), .card, .concept-card");
   items.forEach((item) => item.setAttribute("data-reveal", ""));
   const observer = new IntersectionObserver((entries) => {
@@ -235,7 +237,7 @@ window.addEventListener("scroll", () => {
 
 const progressBar = document.querySelector(".art-card span");
 
-if (progressBar) {
+if (progressBar && !motionOk) {
 
     progressBar.style.transform = "scaleX(0)";
     progressBar.style.transformOrigin = "left";
@@ -261,7 +263,7 @@ if (progressBar) {
 
 const browserArt = document.querySelector(".browser-art");
 
-if(browserArt){
+if(browserArt && !motionOk){
 
 let direction = 1;
 
